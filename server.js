@@ -42,6 +42,7 @@ mongoose.connect("mongodb://localhost:19143/test");
 var PostSchema = new mongoose.Schema({ 
   text: String,
   upvotes: {type: Number, default: 0},
+  author: String,
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
@@ -60,6 +61,7 @@ mongoose.model('Post', PostSchema);
 var CommentSchema = new mongoose.Schema({
   text: String,
   upvotes: {type: Number, default: 0},
+  author: String,
   post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' }
 });
 
@@ -217,7 +219,7 @@ router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, n
 });
 
 router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
-  req.comment.downvote(function(err, comment){
+  req.comment.upvote(function(err, comment){
     if (err) { return next(err); }
 
     res.json(comment);

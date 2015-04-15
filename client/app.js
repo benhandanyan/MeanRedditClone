@@ -1,4 +1,3 @@
-//we'll use routes for this one, our app is "upvoter"
 var app = angular
   .module("reddit", ['ui.router']);
 
