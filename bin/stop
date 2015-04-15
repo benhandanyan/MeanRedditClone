@@ -1,0 +1,12 @@
+mkdir -p /home/benhandanyan/webapps/reddit/run
+pid=$(/sbin/pidof /home/benhandanyan/webapps/reddit/bin/node)
+if echo "$pid" | grep -q " "; then
+    pid=""
+fi
+if [ -n "$pid" ]; then
+  user=$(ps -p $pid -o user | tail -n 1)
+  if [ $user = "benhandanyan" ]; then
+    kill "$pid"
+    rm -f /home/benhandanyan/webapps/reddit/run/node.pid
+  fi
+fi
