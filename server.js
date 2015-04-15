@@ -50,6 +50,11 @@ PostSchema.methods.upvote = function(cb) {
   this.save(cb);
 };
 
+PostSchema.methods.downvote = function(cb) {
+  this.upvotes -= 1;
+  this.save(cb);
+}
+
 mongoose.model('Post', PostSchema);
 
 var CommentSchema = new mongoose.Schema({
@@ -62,6 +67,11 @@ CommentSchema.methods.upvote = function(cb) {
   this.upvotes += 1;
   this.save(cb);
 };
+
+CommentSchema.methods.downvote = function(cb) {
+  this.upvotes -= 1;
+  this.save(cb);
+}
 
 mongoose.model('Comment', CommentSchema);
 
@@ -173,6 +183,14 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
   });
 });
 
+router.put('/posts/:post/downvote', auth, function(req, res, next) {
+  req.post.downvote(function(err, post){
+    if (err) { return next(err); }
+
+    res.json(post);
+  });
+});
+
 router.post('/posts/:post/comments', auth, function(req, res, next) {
   var comment = new Comment(req.body);
   comment.post = req.post;
@@ -190,8 +208,16 @@ router.post('/posts/:post/comments', auth, function(req, res, next) {
   });
 });
 
+router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, next) {
+  req.comment.downvote(function(err, comment){
+    if (err) { return next(err); }
+
+    res.json(comment);
+  });
+});
+
 router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
-  req.comment.upvote(function(err, comment){
+  req.comment.downvote(function(err, comment){
     if (err) { return next(err); }
 
     res.json(comment);
