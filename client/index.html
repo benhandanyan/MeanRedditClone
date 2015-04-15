@@ -32,6 +32,7 @@
 			  <li ng-repeat="post in posts | orderBy : '-upvotes' "> 
 			    <span class="upvotes">{{post.upvotes}}</span> {{post.text}} 
 			    <span class="upvote" ng-click="increaseUpvotes(post)">^upvote this^</span> 
+			    <span class="downvote" ng-click="decreaseUpvotes(post)">^downvote this^</span>
 			    <a href="#/posts/{{post._id}}">comments</a>
 			    <span ng-show="post.author">posted by <a>{{post.author}}</a></span>
 			  </li>
@@ -54,6 +55,7 @@
 			  <li ng-repeat="comment in comments | orderBy : '-upvotes' "> 
 			  <span class="upvotes">{{comment.upvotes}}</span> {{comment.text}} 
 			  <span class="upvote" ng-click="increaseCommentUpvotes(comment)">^Upvote this^</span>
+			  <span class="downvote" ng-click="decreaseCommentUpvotes(comment)">^Downvote this^</span>			  
 			  </li>
 			</ul>
 			<div ng-hide="isLoggedIn()">
