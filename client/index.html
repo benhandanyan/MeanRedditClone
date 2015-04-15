@@ -18,7 +18,7 @@
 	      <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
 	    </ul>
 	  </nav>
-  	<ui-view></ui-view>
+  			<ui-view></ui-view>
 
 		<script type="text/ng-template" id="/home.html">
 			<h1>
@@ -26,13 +26,13 @@
 			</h1>
 			<hr>
 			<input type="text" ng-model="text" class="new-post-text"></input>
-			<button ng-click="addPost()" ng-show="isLoggedIn()" type="button" class="btn btn-std">Create new post</button>
+			<button ng-click="addPost()" ng-show="isLoggedIn()" type="button" class="btn btn-primary">Create new post</button>
 			<hr>
 			<ul>
 			  <li ng-repeat="post in posts | orderBy : '-upvotes' "> 
 			    <span class="upvotes">{{post.upvotes}}</span> {{post.text}} 
-			    <span class="upvote" ng-click="increaseUpvotes(post)">^upvote this^</span> 
-			    <span class="downvote" ng-click="decreaseUpvotes(post)">^downvote this^</span>
+			    <span class="glyphicon glyphicon-thumbs-up" ng-click="increaseUpvotes(post)"></span> 
+			    <span class="glyphicon glyphicon-thumbs-down" ng-click="decreaseUpvotes(post)"></span>
 			    <a href="#/posts/{{post._id}}">comments</a>
 			    <span ng-show="post.author">posted by <a>{{post.author}}</a></span>
 			  </li>
@@ -49,13 +49,13 @@
 			<h3><a href="#/">Back to main page</a></h3>
 			<hr>
 			<input type="text" ng-model="text" class="new-post-text"></input>
-			<button ng-click="addComment()" ng-show="isLoggedIn()" type="button" class="btn btn-std">Create new comment</button>
+			<button ng-click="addComment()" ng-show="isLoggedIn()" type="button" class="btn btn-primary">Create new comment</button>
 			<hr>
 			<ul>
 			  <li ng-repeat="comment in comments | orderBy : '-upvotes' "> 
 			  <span class="upvotes">{{comment.upvotes}}</span> {{comment.text}} 
-			  <span class="upvote" ng-click="increaseCommentUpvotes(comment)">^Upvote this^</span>
-			  <span class="downvote" ng-click="decreaseCommentUpvotes(comment)">^Downvote this^</span>			  
+			  <span class="glyphicon glyphicon-thumbs-up" ng-click="increaseCommentUpvotes(comment)"></span>
+			  <span class="glyphicon glyphicon-thumbs-down" ng-click="decreaseCommentUpvotes(comment)"></span>			  
 			  </li>
 			</ul>
 			<div ng-hide="isLoggedIn()">
